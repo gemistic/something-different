@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #50fa80, #0a8e97, #fad0c4);
+    text-align: center;
+    color: white;
+}
+
+/* Floating Balloons */
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    width: 60px;
+    height: 80px;
+    background: red;
+    border-radius: 50%;
+    animation: floatUp 10s infinite ease-in;
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background: white;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.balloon:nth-child(1) { left: 10%; background: #ff4d6d; animation-delay: 0s; }
+.balloon:nth-child(2) { left: 30%; background: #4cc9f0; animation-delay: 2s; }
+.balloon:nth-child(3) { left: 50%; background: #f72585; animation-delay: 4s; }
+.balloon:nth-child(4) { left: 70%; background: #b5179e; animation-delay: 1s; }
+.balloon:nth-child(5) { left: 90%; background: #7209b7; animation-delay: 3s; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Invite Box */
+.invite-container {
+    background: rgba(255,255,255,0.15);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 2s ease-in-out;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-family: 'Garamond', Courier, monospace;
+}
+
+p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    font-family: 'Avenir', Courier, monospace;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4d6d;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- Balloons -->
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+
+<!-- Invite Content -->
+<div class="invite-container">
+    <h1>🎂 HAPPY BIRTHDAY! 🎉</h1>
+    <p>Level Up! ₍^. .^₎⟆ You are now Level 20. New abilities unlocked!</p>
+    <p>Another year older, another year wiser and I hope its filled with joy. 
+    <p>You're still a teenager trust😂</p> 
+    <p>No me voy a probar en español porque soy muy malo con eso pero, 
+        disfruta del día .☘︎ ݁˖</p>
+        
+    <button onclick="playMusic()">🎵 Play Music</button>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="Lil Uzi Vert - What You Saying (INSTRUMENTAL).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playMusic() {
+    document.getElementById("bgMusic").play();
+}
+</script>
+
+</body>
+</html>
+

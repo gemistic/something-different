@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Awaiting</title>
+<style>
+  body {
+    background-image: url('Fish background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+  }
+
+  h1 {
+    color: rgb(158, 150, 67);
+     font-size: 60px;
+    background: linear-gradient(90deg, #350338, #ff8c00, #40e0d0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    margin-top: 30px;
+  
+  }
+
+  /* Button container */
+  .button {
+    width: 300px;
+    height: 300px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    background-color: rgb(63, 184, 139);
+    color: bisque;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    font-size: 25px;
+    cursor: pointer;
+    position: relative; /* needed for sparkles */
+    overflow: hidden;   /* keep sparkles inside */
+    transition: background-color 0.3s;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+  .button:hover {
+    background-color: #3a7b52;
+  }
+
+  /* Cat image */
+  .cat {
+    width: 100px;
+    transition: transform 0.3s;
+    animation: spin 3s linear;
+  }
+
+  /* Hover animation for cat */
+  .button:hover .cat {
+    transform: translateY(-10px) scale(1.1);
+  }
+
+  /* Floating animation */
+  @keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 1;
+    pointer-events: none;
+    animation: sparkleAnim 0.8s forwards;
+  }
+
+  @keyframes sparkleAnim {
+    0% {
+      transform: scale(0) translate(0,0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(var(--scale)) translate(var(--x), var(--y)) rotate(var(--rotate));
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0) translate(var(--x), var(--y)) rotate(var(--rotate));
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+if (window.location.hostname === '127.0.0.1:5500') {
+    window.location.href = 'https://birthdaysurprise.com';
+}
+</script>
+
+</head>
+<body>
+
+<h1>Welcome/Bienvenida</h1>
+
+<audio id="sparkleSound" src="glitter.mp3"></audio>
+
+<div class="button" id="button">
+  CLICK ME FOR SURPRISE
+  <img src="output-onlinepngtools (10).png" class="cat" id="cat">
+</div>
+
+<script>
+const cat = document.getElementById('cat');
+const button = document.getElementById('button');
+const sparkleSound = document.getElementById('sparkleSound');
+
+cat.addEventListener('click', (e) => {
+  e.preventDefault(); // stop immediate navigation
+
+  // play sound
+  sparkleSound.currentTime = 0;
+  sparkleSound.play().catch(err => console.log("Audio error:", err));
+
+  // bounce animation
+  button.classList.add('spin');
+  setTimeout(() => button.classList.remove('spin'), 300);
+
+  // sparkles
+  for(let i=0; i<15; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+
+    const colors = ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#8b00ff'];
+    sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+    const x = (Math.random() - 0.5) * 200 + "px";
+    const y = (Math.random() - 0.5) * 200 + "px";
+    sparkle.style.setProperty('--x', x);
+    sparkle.style.setProperty('--y', y);
+
+    const scale = (Math.random() * 1.5 + 0.5).toFixed(2);
+    sparkle.style.setProperty('--scale', scale);
+
+    const rotate = Math.floor(Math.random() * 360) + "deg";
+    sparkle.style.setProperty('--rotate', rotate);
+
+    const rect = cat.getBoundingClientRect();
+    const parentRect = button.getBoundingClientRect();
+    const left = rect.left - parentRect.left + rect.width/2 - 5;
+    const top = rect.top - parentRect.top + rect.height/2 - 5;
+    sparkle.style.left = left + "px";
+    sparkle.style.top = top + "px";
+
+    button.appendChild(sparkle);
+    sparkle.addEventListener('animationend', () => sparkle.remove());
+  }
+
+  // navigate after 0.5s
+  setTimeout(() => {
+    window.location.href = "Surprise2.html";
+  }, 500);
+});
+</script>
+
+</body>
+</html>
